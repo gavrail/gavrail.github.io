@@ -6,11 +6,15 @@ modified: 2020-05-24
 tags: [python]
 ---
 
-These days there are countless ways to set up Python on your system. The method that would work best for you is likely available but with so many available options, how would you go about finding the right one for you?
+With so many ways to set up Python on your system, how would you choose the right one for you?
 
-If you are like me and develop code in multiple languages and would like to have control over what is installed (installing only what you need), without having to readjust to different development environments as you switch languages, read on.
+If you
+1. develop code in multiple languages but would rather use a single environment
+2. like to control what is installed (installing only what you need)
+3. enjoy the code editor experience but also require customization
+like I do, this post is for you.
 
-The steps below are described for the current versions of Python (3.8).
+The steps below apply to Python 3.8 and Visual Studio Code (VSCode) 1.44.2.
 
 # Download Python
 
@@ -18,61 +22,51 @@ Head to [python.org](https://python.org) and download the latest version.
 
 Then choose the `Windows x86-64 executable installer`.
 
-In the options, ensure that you have `pip` installed. By selecting "for all users", Python will be installed in `Program Files`.
+In the options, ensure that you have `pip` installed. Select "for all users" to install Python in `Program Files`.
 <figure>
   <img src="/images/python-setup-optional-features.png">
 </figure>
 
 # Download Visual Studio Code
 
-Before using Visual Studio Code, I was a big fan of Microsoft Visual Studio's Python Tools. Initially, working with Visual Studio Code was causing me various difficulties but the current versions provide for a smooth development process.
+Before using Visual Studio Code, I was a big fan of Microsoft Visual Studio's Python Tools... with the exception of the "creating a project" part. I would much rather define the project in terms of its directory structure.
+
+Initially, Visual Studio Code was causing me various difficulties but the current versions provide for a smooth development experience with little taking your fingers off the keyboard.
 
 
 After having given up on Visual Studio Code, [this](
 https://kenreitz.org/essays/why-you-should-use-vs-code-if-youre-a-python-developer
 ) article convinced me to give it another try.
 
-
-Before switching to VSCode, I was using Visual Studio with the Python Extensions. However, I was not a fan of using the workflow for development of Windows projects for Python. In Python everything is determined by the project structure and you only want to specify additional stuff.
-
-Additionally, you get:
-
-Great integration with Jupyter notebooks.
-
-This year's MSBuild conference also announced all the cool things they are doing with Visual Studio Code (which will be embedded into GitHub to allow you to code without having to set it up on your computer, etc.)
-
-Additionally, VSCode has developed a rich set of toolboxes for data processing in Python, which will make your job much easier.
+Additionally, you get get great integration with Jupyter.
 
 # Setting up a Virtual Environment
 
-This step helps you keep the dependencies for your projects separate.
+This step helps you separate project dependencies.
 
-Otherwise, all Python packages that you install are going to be in Lib\site-packages.
-
-This will work fine until the time when you have to give your project to someone else and you will have no idea which of  the installed packages in your Python directory it depends on.
+In the alternative, you will lose track of the Python packages (and their versions) needed for a specific project and make other contributors to your projects suffer inordinately.
 
 ## Choosing a home for your virtual environment
 
 You can either place the virtual environment in the directory of the project that uses the virtual environment or in a directory of virtual environments. 
 
 I prefer the latter option because:
-Multiple projects can use the same virtual environment
-When searching for files in the folder of your project, you are likely not to want to search for code that came with your python installation or code that you installed using the Python packages. Instead, you would rather focus on the code that you wrote.
-
+1. Multiple projects can use the same virtual environment
+2. You likely want matches from your own code when searching your project directory (and not matches from your Python virtual environment)
 
 ## Setting up your virtual environment
 
-After you install Python, typing "python" in the command prompt would start the Python interactive prompt for the version that you installed if the directory in which the executable is located has been added to your Path environment variable in Windows. You can check the contents of your Environment Variable from This PC > Properties > Advanced System Settings.
+If your Python installation is on your Windows path, typing `python` in the Command Prompt would start the Python shell. (You can view your path from your `Environment Variables...` from `This PC` > `Properties` > `Advanced System Settings`.)
 
-If Python is not a part of it, you will have to use the full path to the executable to create your virtual environment.
+If Python is not on your path, you will have to use the full path to the executable to create your virtual environment.
 
 The command to use is:
 
 ```
-python -m venv name_of_your_virtual_environment
+python -m venv path_to_your_virtual_environment
 ```
 
-After you run this in the command prompt, Python will create a directory containing the virtual environment.
+Python will place the virtual environment files where you specified.
 
 ## Activating a virtual environment
 
@@ -92,17 +86,12 @@ To specify a directory containing the virtual environments for your project, use
 "python.venvPath": "X:\\Python\\venv"
 ```
 
-If you prefer to keep your virtual environments at a custom location in your home directory, you may also set `Venv Folders`. Here you need to list only the folder names.
+If you prefer to keep your virtual environments at a custom location in your home directory, you may also set `Venv Folders`. There you need to list only the folder names.
 
 After this step, you need to reboot Visual Studio Code.
 
 
-To select your environment, press `Ctrl + Shift + P` and select yours from the list. Some examples of that are shown [here](https://code.visualstudio.com/docs/python/environments).
-
-Open Visual Studio press open the directory where you wish to work on your Python project.
-
-
-Press Ctrl + Shift + P to select the terminal.
+Press `Ctrl + Shift + P` to select your virtual environment from the list. Some examples are shown [here](https://code.visualstudio.com/docs/python/environments).
 
 ## Creating an integrated terminal
 
@@ -110,7 +99,7 @@ Press `Ctrl + Shift + P` : `Python: Create Terminal`
 
 This will create a terminal which is specific to your virtual environment.
 
-For example, typing python will start the Python shell.
+For example, typing `python` will start the Python shell for your virtual environment.
 
 Note that you may need to run ```Set-ExecutionPolicy RemoteSigned``` in PowerShell to allow the virtual environment activation to work. More info is available [here](
   https://github.com/Microsoft/vscode-python/issues/2559
@@ -122,7 +111,7 @@ With the terminal running, run ```pip install package_name```. This will install
 
 ## requirements.txt
 
-You've set up your project nicely but what if you wanted to create an easy way to install all the dependencies that are needed to run your project?
+Having installed all the packages you need, how could you let a contributor easily replicate your setup?
 
 You can use `pip freeze` to accomplish this goal:
 
@@ -130,9 +119,9 @@ You can use `pip freeze` to accomplish this goal:
 pip freeze > requirements.txt
 ```
 
-Running this from your activated terminal will write the file to your current directory.
+Running this from your activated terminal will write the file `requirements.txt` to your project directory.
 
-To install the necessary packages from a `requirements.txt` that someone provided, use:
+To install the necessary packages from a `requirements.txt`, use:
 
 ```
 pip install -r requirements.txt
