@@ -14,7 +14,7 @@ If you
 3. enjoy the code editor experience but also require customization
 like I do, this post is for you.
 
-The steps below apply to Python 3.8 and Visual Studio Code (VSCode) 1.44.2.
+The steps below apply to Python 3.8 and Visual Studio Code (VS Code) 1.44.2.
 
 # Download Python
 
@@ -34,11 +34,11 @@ Before using Visual Studio Code, I was a big fan of Microsoft Visual Studio's Py
 Initially, Visual Studio Code was causing me various difficulties but the current versions provide for a smooth development experience with little taking your fingers off the keyboard.
 
 
-After having given up on Visual Studio Code, [this](
+After having given up on Visual Studio Code, [this article](
 https://kenreitz.org/essays/why-you-should-use-vs-code-if-youre-a-python-developer
-) article convinced me to give it another try.
+) convinced me to give it another try.
 
-Additionally, you get get great integration with Jupyter.
+Additionally, you get great integration with Jupyter.
 
 # Setting up a Virtual Environment
 
